@@ -1,15 +1,84 @@
-Welcome to your new dbt project!
+# 🚕 NYC Taxi dbt Data Warehouse
 
-### Using the starter project
+A data warehouse built using **dbt (data build tool)** on top of the NYC Yellow Taxi dataset.
+This project transforms raw taxi trip data into clean, analytics-ready models using
+staging, facts, and aggregation layers.
 
-Try running the following commands:
-- dbt run
-- dbt test
+---
 
+## 🛠️ Tools & Technologies
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+- **dbt-postgres** 1.10.0
+- **PostgreSQL** 18
+- **Python** 3.13
+- **SQL**
+
+---
+
+## 📐 Project Architecture
+Raw Data (taxidb.taxi_trips)
+│
+▼
+stg_taxi_trips      ← Staging layer: cleans data, adds derived columns
+│
+▼
+fct_taxi_trips      ← Facts layer: payment labels, time buckets, distance categories
+│
+▼
+agg_hourly_stats    ← Aggregation layer: trip stats grouped by hour
+
+---
+
+## 📊 Models
+
+| Model | Type | Description |
+|---|---|---|
+| `stg_taxi_trips` | View | Adds pickup_hour, day_of_week, trip_duration, tip_percentage |
+| `fct_taxi_trips` | View | Adds payment descriptions, time of day buckets, distance categories |
+| `agg_hourly_stats` | View | Aggregates trip count, avg fare, avg distance by hour |
+
+---
+
+## ✅ Data Quality Tests
+
+8 automated tests defined in `schema.yml` — all passing:
+- `unique` and `not_null` checks on key columns across all models
+
+Run tests with:
+```bash
+dbt test
+```
+
+---
+
+## 🚀 How to Run
+
+1. Clone the repo
+2. Set up your `~/.dbt/profiles.yml` with your PostgreSQL credentials
+3. Install dbt: `pip install dbt-postgres`
+4. Run the models:
+
+```bash
+dbt run
+```
+
+5. Run the tests:
+
+```bash
+dbt test
+```
+
+---
+
+## 📁 Data Source
+
+NYC Yellow Taxi Trip Records — 2,884,216 rows loaded via
+[Project 1: NYC Taxi Pipeline](https://github.com/Brian-10-star/nyc-taxi-pipeline)
+
+---
+
+## 👤 Author
+
+**Brian Mbugua Chira**  
+BSc Computer Science, Egerton University  
+[LinkedIn](https://www.linkedin.com/in/mbuguabrian) • [GitHub](https://github.com/Brian-10-star)
