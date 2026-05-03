@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: public
+    database: taxidb
+    schema: public
+    tables:
+      - name: taxi_trips
+        description: "Raw NYC Yellow Taxi trip records loaded from parquet file"
+
+models:
+  - name: stg_taxi_trips
+    description: "Staged taxi trips with derived time and tip columns"
+    columns:
+      - name: trip_id
+        description: "Unique trip identifier"
+        tests:
+          - unique
+          - not_null
+      - name: fare_amount
+        tests:
+          - not_null
+      - name: trip_distance
+        tests:
+          - not_null
+
+  - name: fct_taxi_trips
+    description: "Enriched taxi trips with payment descriptions, time of day and distance categories"
+    columns:
+      - name: trip_id
+        tests:
+          - unique
+          - not_null
+
+  - name: agg_hourly_stats
+    description: "Aggregated trip statistics grouped by pickup hour"
+    columns:
+      - name: pickup_hour
+        tests:
+          - unique
+          - not_null
