@@ -185,7 +185,6 @@ This is Project 4 of 5 in my Data Engineering portfolio:
 
 **Brian Mbugua Chira**
 BSc Computer Science — Egerton University, Kenya (Expected 2028)
-Building a career in Data Engineering.
 
 - GitHub: [github.com/Brian-10-star](https://github.com/Brian-10-star)
 - LinkedIn: [linkedin.com/in/mbuguabrian](https://linkedin.com/in/mbuguabrian)
